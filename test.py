@@ -1,3 +1,6 @@
+from multiprocessing.sharedctypes import Value
+
+
 class SoldOutError(Exception):
     def __init__(self, msg):
         self.msg = msg
@@ -19,10 +22,18 @@ while(True):
         if order > chicken:
             print("재료가 부족합니다.")
             raise SoldOutError("재료가 소진되어서 더이상의 주문은 받지 않습니다.")
+# 조건 1 추가
+        elif order <= 0:
+            raise ValueError
+# 조건 1
         else:
             print(f"[대기번호 {waiting}] {order}마리의 치킨을 주문하셨습니다.")
             waiting += 1
             chicken -= order
+# 조건 1 추가
+    except ValueError:
+        print("잘못된 값을 입력하였습니다.")
+# 조건 1
     except SoldOutError as err:
         print(err)
         break;
