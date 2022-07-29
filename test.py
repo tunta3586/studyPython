@@ -36,4 +36,4 @@ while(True):
 # 조건 1
     except SoldOutError as err:
         print(err)
-        break;
+        break
